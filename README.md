@@ -15,11 +15,26 @@ The display is a retro flip clock: each digit sits on a dark card that folds ove
 
 ---
 
+## Quick install (no Xcode required)
+
+A pre-built `.saver` bundle is included in this repo. You don't need to install Xcode or compile anything.
+
+1. [Download the repo as a ZIP](https://github.com/JasmineIsHere/tgif-screensaver/archive/refs/heads/main.zip) — click that link or use the green **Code → Download ZIP** button on GitHub.
+2. Unzip the file. You'll get a folder called `tgif-screensaver-main`.
+3. Open that folder and find **`FlipClockScreensaver.saver`**.
+4. Double-click it — macOS will ask whether to install it for your user only or for everyone. Either option works.
+5. Open **System Settings → Screen Saver**, select **Flip Clock Screensaver**, and click **Preview**.
+
+> **Apple Silicon only.** This build targets arm64 (M1/M2/M3/M4 Macs). If you have an Intel Mac, you'll need to build from source (see below).
+
+---
+
 ## Requirements
 
 - macOS Ventura (13) or later
-- Xcode 15 or later
 - Apple Silicon (arm64)
+
+> To build from source, you also need Xcode 15 or later.
 
 ---
 

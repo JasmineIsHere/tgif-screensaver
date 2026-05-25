@@ -59,7 +59,7 @@ This project uses specialised agents. Always stay within your assigned scope:
 - Do not assume I know Swift syntax — always explain new patterns when introduced
 
 ## Current Focus
-Phase 4 complete: Configurable TGIF hour fully implemented. New files: `ClockPreferences.swift` (ScreenSaverDefaults wrapper), `SettingsView.swift` (Options sheet UI). Updated: `CountdownEngine` accepts `tgifHour` param, `ClockView` reads from environment, `FlipClockScreensaverView` wires up the configure sheet. Unit test suite (Swift Package, 20 tests, all passing). Next: build in Xcode and test the Options sheet in System Settings.
+- Completed.
 
 ## Known Constraints
 - Must run on macOS only
