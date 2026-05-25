@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BB111111111111111111BB /* FlipClockScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA111111111111111111AA /* FlipClockScreensaverView.swift */; };
+		BB222222222222222222BB /* CountdownEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA222222222222222222AA /* CountdownEngine.swift */; };
+		BB333333333333333333BB /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA333333333333333333AA /* ClockView.swift */; };
+		BB444444444444444444BB /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA444444444444444444AA /* ScreenSaver.framework */; };
+		BB555555555555555555BB /* DigitGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA777777777777777777AA /* DigitGroupView.swift */; };
+		BB666666666666666666BB /* FlipDigitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA888888888888888888AA /* FlipDigitView.swift */; };
+		BBCCCCCCCCCCCCCCCCCCBB /* ClockPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACCCCCCCCCCCCCCCCCCAA /* ClockPreferences.swift */; };
+		BBDDDDDDDDDDDDDDDDDDBB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADDDDDDDDDDDDDDDDDDAA /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA111111111111111111AA /* FlipClockScreensaverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockScreensaverView.swift; sourceTree = "<group>"; };
+		AA222222222222222222AA /* CountdownEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEngine.swift; sourceTree = "<group>"; };
+		AA333333333333333333AA /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		AA444444444444444444AA /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = System/Library/Frameworks/ScreenSaver.framework; sourceTree = SDKROOT; };
+		AA555555555555555555AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = FlipClockScreensaver/Info.plist; sourceTree = SOURCE_ROOT; };
+		AA666666666666666666AA /* FlipClockScreensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlipClockScreensaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA777777777777777777AA /* DigitGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitGroupView.swift; sourceTree = "<group>"; };
+		AA888888888888888888AA /* FlipDigitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipDigitView.swift; sourceTree = "<group>"; };
+		AACCCCCCCCCCCCCCCCCCAA /* ClockPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockPreferences.swift; sourceTree = "<group>"; };
+		AADDDDDDDDDDDDDDDDDDAA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD222222222222222222DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB444444444444444444BB /* ScreenSaver.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC000000000000000000CC = {
+			isa = PBXGroup;
+			children = (
+				CC111111111111111111CC /* FlipClockScreensaver */,
+				CC444444444444444444CC /* Frameworks */,
+				CC333333333333333333CC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC111111111111111111CC /* FlipClockScreensaver */ = {
+			isa = PBXGroup;
+			children = (
+				AA111111111111111111AA /* FlipClockScreensaverView.swift */,
+				AA222222222222222222AA /* CountdownEngine.swift */,
+				AA333333333333333333AA /* ClockView.swift */,
+				AA777777777777777777AA /* DigitGroupView.swift */,
+				AA888888888888888888AA /* FlipDigitView.swift */,
+				AACCCCCCCCCCCCCCCCCCAA /* ClockPreferences.swift */,
+				AADDDDDDDDDDDDDDDDDDAA /* SettingsView.swift */,
+				AA555555555555555555AA /* Info.plist */,
+			);
+			path = FlipClockScreensaver;
+			sourceTree = "<group>";
+		};
+		CC333333333333333333CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA666666666666666666AA /* FlipClockScreensaver.saver */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC444444444444444444CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA444444444444444444AA /* ScreenSaver.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE111111111111111111EE /* FlipClockScreensaver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = HH222222222222222222HH /* Build configuration list for PBXNativeTarget "FlipClockScreensaver" */;
+			buildPhases = (
+				DD111111111111111111DD /* Sources */,
+				DD222222222222222222DD /* Frameworks */,
+				DD333333333333333333DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlipClockScreensaver;
+			productName = FlipClockScreensaver;
+			productReference = AA666666666666666666AA /* FlipClockScreensaver.saver */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FF111111111111111111FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					EE111111111111111111EE = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = HH111111111111111111HH /* Build configuration list for PBXProject "FlipClockScreensaver" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC000000000000000000CC;
+			productRefGroup = CC333333333333333333CC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE111111111111111111EE /* FlipClockScreensaver */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD333333333333333333DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD111111111111111111DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB111111111111111111BB /* FlipClockScreensaverView.swift in Sources */,
+				BB222222222222222222BB /* CountdownEngine.swift in Sources */,
+				BB333333333333333333BB /* ClockView.swift in Sources */,
+				BB555555555555555555BB /* DigitGroupView.swift in Sources */,
+				BB666666666666666666BB /* FlipDigitView.swift in Sources */,
+				BBCCCCCCCCCCCCCCCCCCBB /* ClockPreferences.swift in Sources */,
+				BBDDDDDDDDDDDDDDDDDDBB /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		GG111111111111111111GG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = S4YP9LDQZX;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		GG222222222222222222GG /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = S4YP9LDQZX;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		GG333333333333333333GG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlipClockScreensaver/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jasminetan.FlipClockScreensaver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Debug;
+		};
+		GG444444444444444444GG /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FlipClockScreensaver/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jasminetan.FlipClockScreensaver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		HH111111111111111111HH /* Build configuration list for PBXProject "FlipClockScreensaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG111111111111111111GG /* Debug */,
+				GG222222222222222222GG /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		HH222222222222222222HH /* Build configuration list for PBXNativeTarget "FlipClockScreensaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG333333333333333333GG /* Debug */,
+				GG444444444444444444GG /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FF111111111111111111FF /* Project object */;
+}

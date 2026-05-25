@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Swift Package Manager build artifacts
+.build/
+
+# SwiftPM internal workspace state
+.swiftpm/
+
+# Xcode derived data and per-user settings
+FlipClockScreensaver/DerivedData/
+**/*.xcodeproj/xcuserdata/
+**/*.xcodeproj/project.xcworkspace/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+*.xccheckout
+*.moved-aside
