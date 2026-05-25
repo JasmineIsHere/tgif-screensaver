@@ -3,7 +3,7 @@
 ## Completed this session
 
 ### Stale comment fix
-Updated `FlipClockScreensaverView.animateOneFrame()` — replaced the outdated "Phase 2 will use this" comment with an accurate one explaining that `ClockView` drives its own timer.
+Updated `TgifScreensaverView.animateOneFrame()` — replaced the outdated "Phase 2 will use this" comment with an accurate one explaining that `ClockView` drives its own timer.
 
 ### Unit test suite (Swift Package)
 Created a Swift Package at the project root so `CountdownEngine` can be tested from the terminal without Xcode:
@@ -21,7 +21,7 @@ All four components of the scope item are done:
 - **`ClockPreferences.swift`** (new) — `ObservableObject` wrapping `ScreenSaverDefaults`. Reads/writes `tgifHour` under key `"tgifHour"` with a registered default of 18. Exposes `save()` to flush to disk.
 - **`SettingsView.swift`** (new) — SwiftUI settings sheet. Shows a 24-hour `Picker` ("00:00"–"23:00"). Uses a local `@State var selectedHour` so Cancel truly discards; only writes to `prefs` on OK. Resets to saved value on `.onAppear` so reopening the sheet is always fresh.
 - **`ClockView.swift`** — now has `@EnvironmentObject var prefs: ClockPreferences`. Passes `prefs.tgifHour` to the engine on `.onAppear` and every timer tick. Preview updated with `.environmentObject(ClockPreferences(bundleID: "com.preview"))`.
-- **`FlipClockScreensaverView.swift`** — creates `ClockPreferences` (lazy, using bundle ID from `Bundle(for:)`), injects it via `.environmentObject()`, wraps in `AnyView` for type erasure. Implements `hasConfigureSheet = true` and `configureSheet` via a lazy `configureSheetWindow` (`NSHostingController` + `NSWindow`). Dismiss closure calls `sheetParent?.endSheet`.
+- **`TgifScreensaverView.swift`** — creates `ClockPreferences` (lazy, using bundle ID from `Bundle(for:)`), injects it via `.environmentObject()`, wraps in `AnyView` for type erasure. Implements `hasConfigureSheet = true` and `configureSheet` via a lazy `configureSheetWindow` (`NSHostingController` + `NSWindow`). Dismiss closure calls `sheetParent?.endSheet`.
 - **`project.pbxproj`** — registered `ClockPreferences.swift` and `SettingsView.swift` in build files, file references, group children, and sources build phase so Xcode sees both files.
 
 ### README.md created
@@ -36,7 +36,7 @@ Nothing. All code is written and all 20 unit tests pass.
 
 ## Next steps
 
-1. **Build in Xcode** — ⌘B, then Product → Show Build Folder in Finder. Grab `FlipClockScreensaver.saver`.
+1. **Build in Xcode** — ⌘B, then Product → Show Build Folder in Finder. Grab `TgifScreensaver.saver`.
 2. **Install** — double-click the `.saver` file.
 3. **Test the Options sheet** — System Settings → Screen Saver → Options… → verify the hour picker appears, change the value, click OK, confirm the countdown target changes.
 4. **Test both phases** — preview on a weekday (should show TGIF countdown) and on a weekend (should show Monday countdown).

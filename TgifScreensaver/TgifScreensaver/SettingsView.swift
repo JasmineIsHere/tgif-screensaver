@@ -10,7 +10,7 @@ struct SettingsView: View {
     @ObservedObject var prefs: ClockPreferences
 
     // onDismiss is called by both OK and Cancel to close the sheet.
-    // The actual NSWindow dismissal logic lives in FlipClockScreensaverView,
+    // The actual NSWindow dismissal logic lives in TgifScreensaverView,
     // which creates this view and passes the closure in.
     let onDismiss: () -> Void
 

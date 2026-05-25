@@ -9,6 +9,7 @@
 
 # Xcode derived data and per-user settings
 FlipClockScreensaver/DerivedData/
+TgifScreensaver/DerivedData/
 **/*.xcodeproj/xcuserdata/
 **/*.xcodeproj/project.xcworkspace/xcuserdata/
 **/*.xcworkspace/xcuserdata/

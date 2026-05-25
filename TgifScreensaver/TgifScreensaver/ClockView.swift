@@ -6,7 +6,7 @@ import SwiftUI
 struct ClockView: View {
 
     // @EnvironmentObject is SwiftUI's way of sharing an object across many views without
-    // passing it through every intermediate view manually. FlipClockScreensaverView injects
+    // passing it through every intermediate view manually. TgifScreensaverView injects
     // ClockPreferences into the environment; we just declare that we need it here.
     @EnvironmentObject var prefs: ClockPreferences
 

@@ -15,11 +15,11 @@
 **Why:** If we passed the full two-digit number to a single card, changing from 09→10 would flip the whole card. Splitting means only the digit that actually changed flips, which is how a real flip clock behaves and looks much better.
 
 ## NSHostingView bridge pattern
-**Decision:** `FlipClockScreensaverView` (the ScreenSaverView subclass) embeds `ClockView` inside an `NSHostingView`, which fills the full frame with `autoresizingMask`.  
+**Decision:** `TgifScreensaverView` (the ScreenSaverView subclass) embeds `ClockView` inside an `NSHostingView`, which fills the full frame with `autoresizingMask`.  
 **Why:** ScreenSaver.framework is AppKit-based (NSView). `NSHostingView` is the standard Apple-provided bridge from AppKit → SwiftUI. We minimise AppKit usage to just this one class.
 
 ## @objc annotation on the principal class
-**Decision:** `FlipClockScreensaverView` is annotated `@objc(FlipClockScreensaverView)` to give it a stable ObjC name.  
+**Decision:** `TgifScreensaverView` is annotated `@objc(TgifScreensaverView)` to give it a stable ObjC name.  
 **Why:** `NSPrincipalClass` in Info.plist must exactly match the ObjC runtime name. Without the annotation, Swift may mangle the name (adding the module prefix), causing the screensaver to fail to load.
 
 ## CountdownEngine as a pure static struct
@@ -32,7 +32,7 @@
 **How to apply:** Always call `register(defaults:)` before the first `integer(forKey:)` read, or the key's absence returns 0 instead of 18.
 
 ## ClockPreferences as ObservableObject injected via @EnvironmentObject
-**Decision:** `ClockPreferences` is an `ObservableObject` created once in `FlipClockScreensaverView` and injected into `ClockView` via `.environmentObject()`.  
+**Decision:** `ClockPreferences` is an `ObservableObject` created once in `TgifScreensaverView` and injected into `ClockView` via `.environmentObject()`.  
 **Why:** Avoids passing the preferences object through every view layer manually. `@EnvironmentObject` is Swift's standard mechanism for this. The single instance is shared between `ClockView` (reads `tgifHour` on each tick) and `SettingsView` (writes on OK).  
 **Trade-off:** `@EnvironmentObject` crashes at runtime if the object is missing from the environment — every preview must inject it explicitly with `.environmentObject(ClockPreferences(bundleID: "com.preview"))`.
 

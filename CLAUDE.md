@@ -1,4 +1,4 @@
-# Flip Clock Screensaver
+# Tgif Screensaver
 
 ## Project Overview
 A native macOS screensaver that displays a dynamic flip clock with two modes:
@@ -16,7 +16,7 @@ The screensaver must count down to the user's **local** Friday end-of-work time,
 ### Configurable end-of-work time
 Users should be able to set their own TGIF cutoff (default: 18:00). Implementation requires:
 - **`UserDefaults` storage** — store the chosen hour (integer 0–23) under a namespaced key (e.g. `com.flipclock.tgifHour`). `ScreenSaverDefaults` (a subclass of `UserDefaults` scoped to the bundle identifier) is the correct API for screensavers.
-- **Settings sheet** — implement `hasConfigureSheet = true` and `configureSheet` in `FlipClockScreensaverView`. The sheet is an `NSWindow` containing a SwiftUI view with a simple time picker.
+- **Settings sheet** — implement `hasConfigureSheet = true` and `configureSheet` in `TgifScreensaverView`. The sheet is an `NSWindow` containing a SwiftUI view with a simple time picker.
 - **`CountdownEngine` update** — `countdownToTGIF(from:weekday:calendar:)` currently hardcodes hour `18`. Change its signature to accept a `tgifHour: Int` parameter so the engine stays pure and testable.
 - **`ClockView` update** — read the stored preference on appear and pass it down to the engine.
 

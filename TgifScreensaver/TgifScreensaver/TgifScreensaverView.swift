@@ -4,8 +4,8 @@ import SwiftUI
 // ScreenSaver.framework requires an ObjC-visible class as the bundle's principal class.
 // The @objc(...) annotation gives it a predictable ObjC name so NSPrincipalClass in
 // Info.plist can find it at runtime.
-@objc(FlipClockScreensaverView)
-class FlipClockScreensaverView: ScreenSaverView {
+@objc(TgifScreensaverView)
+class TgifScreensaverView: ScreenSaverView {
 
     // NSHostingView bridges AppKit (ScreenSaverView) → SwiftUI (ClockView).
     // We hold a strong reference so it isn't deallocated.
@@ -15,7 +15,7 @@ class FlipClockScreensaverView: ScreenSaverView {
     // lazy var means it's only created when first accessed, at which point Self.self
     // is a fully initialised object and Bundle(for:) works correctly.
     private lazy var preferences: ClockPreferences = {
-        let bundleID = Bundle(for: FlipClockScreensaverView.self).bundleIdentifier
+        let bundleID = Bundle(for: TgifScreensaverView.self).bundleIdentifier
             ?? "com.flipclock"
         return ClockPreferences(bundleID: bundleID)
     }()

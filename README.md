@@ -1,4 +1,4 @@
-# Flip Clock Screensaver
+# Tgif Screensaver
 
 ![The Work Countdown](assets/theworkcountdown.png)
 
@@ -19,10 +19,10 @@ The display is a retro flip clock: each digit sits on a dark card that folds ove
 
 A pre-built `.saver` bundle is included in this repo. You don't need to install Xcode or compile anything.
 
-1. Download FlipClockScreensaver.saver.zip [from here](https://github.com/JasmineIsHere/tgif-screensaver/blob/ff9781b3c3f0b9bb4c71b5b68cf71b5e7409e575/FlipClockScreensaver.saver.zip)
-2. Unzip the file and find **`FlipClockScreensaver.saver`**.
+1. Download TgifScreensaver.saver.zip [from here](https://github.com/JasmineIsHere/tgif-screensaver/blob/ff9781b3c3f0b9bb4c71b5b68cf71b5e7409e575/TgifScreensaver.saver.zip)
+2. Unzip the file and find **`TgifScreensaver.saver`**.
 3. Double-click it — macOS will ask whether to install it for your user only or for everyone. Either option works.
-4. Open **System Settings → Screen Saver**, select **Flip Clock Screensaver**, and click **Preview**.
+4. Open **System Settings → Screen Saver**, select **TgifScreensaver**, and click **Preview**.
 
 > **Apple Silicon only.** This build targets arm64 (M1/M2/M3/M4 Macs). If you have an Intel Mac, you'll need to build from source (see below).
 
@@ -40,14 +40,14 @@ A pre-built `.saver` bundle is included in this repo. You don't need to install 
 ## Project structure
 
 ```
-TheWorkCountdown/
-├── FlipClockScreensaver/          Xcode project
-│   └── FlipClockScreensaver/
+tgif-screensaver/
+├── TgifScreensaver/               Xcode project
+│   └── TgifScreensaver/
 │       ├── CountdownEngine.swift      Pure logic — no UI, no timers
 │       ├── FlipDigitView.swift        Single flip card with 3D animation
 │       ├── DigitGroupView.swift       Two-card group (tens + units) + label
 │       ├── ClockView.swift            Root SwiftUI view, owns the timer
-│       └── FlipClockScreensaverView.swift  ScreenSaver.framework bridge
+│       └── TgifScreensaverView.swift  ScreenSaver.framework bridge
 ├── Sources/CountdownLogic/        Copy of CountdownEngine for swift test
 ├── Tests/CountdownLogicTests/     Unit tests for countdown logic
 └── Package.swift                  Swift Package (tests only)
@@ -63,12 +63,12 @@ Click **Options...** next to the screensaver in System Settings → Screen Saver
 
 ## Build and install
 
-1. Open `FlipClockScreensaver/FlipClockScreensaver.xcodeproj` in Xcode.
+1. Open `TgifScreensaver/TgifScreensaver.xcodeproj` in Xcode.
 2. Press **⌘B** to build.
 3. In the menu bar: **Product → Show Build Folder in Finder**.
-4. Navigate to `Products/` and find `FlipClockScreensaver.saver`.
+4. Navigate to `Products/` and find `TgifScreensaver.saver`.
 5. Double-click it — macOS will prompt you to install it.
-6. Open **System Settings → Screen Saver**, select "Flip Clock Screensaver", click **Preview**.
+6. Open **System Settings → Screen Saver**, select "TgifScreensaver", click **Preview**.
 
 ---
 
@@ -101,6 +101,6 @@ Each digit is rendered with four layers stacked in a `ZStack`:
 
 The two flaps animate sequentially (each 0.15 s) so the total flip takes 0.30 s.
 
-### ScreenSaver bridge (`FlipClockScreensaverView.swift`)
+### ScreenSaver bridge (`TgifScreensaverView.swift`)
 
-ScreenSaver.framework is AppKit-based, so the bundle's principal class (`FlipClockScreensaverView`) subclasses `ScreenSaverView` and embeds `ClockView` inside an `NSHostingView`. All SwiftUI logic lives entirely in `ClockView` and below.
+ScreenSaver.framework is AppKit-based, so the bundle's principal class (`TgifScreensaverView`) subclasses `ScreenSaverView` and embeds `ClockView` inside an `NSHostingView`. All SwiftUI logic lives entirely in `ClockView` and below.

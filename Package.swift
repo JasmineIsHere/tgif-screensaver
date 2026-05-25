@@ -8,7 +8,7 @@
 //   swift test
 //
 // The source file under Sources/CountdownLogic/ is a copy of
-// FlipClockScreensaver/FlipClockScreensaver/CountdownEngine.swift.
+// TgifScreensaver/TgifScreensaver/CountdownEngine.swift.
 // If you change the countdown logic, update both files.
 
 import PackageDescription

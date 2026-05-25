@@ -16,7 +16,7 @@ final class ClockPreferences: ObservableObject {
     private let tgifHourKey = "tgifHour"
 
     // bundleID must match the screensaver bundle's CFBundleIdentifier.
-    // We get this at runtime from the bundle itself (see FlipClockScreensaverView).
+    // We get this at runtime from the bundle itself (see TgifScreensaverView).
     init(bundleID: String) {
         let d = ScreenSaverDefaults(forModuleWithName: bundleID)
         // register(defaults:) sets the fallback value used when the key has never been written.
