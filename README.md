@@ -19,7 +19,7 @@ The display is a retro flip clock: each digit sits on a dark card that folds ove
 
 A pre-built `.saver` bundle is included in this repo. You don't need to install Xcode or compile anything.
 
-1. Download TgifScreensaver.saver.zip [from here](https://github.com/JasmineIsHere/tgif-screensaver/blob/ff9781b3c3f0b9bb4c71b5b68cf71b5e7409e575/TgifScreensaver.saver.zip)
+1. Download TgifScreensaver.saver.zip [from Releases](https://github.com/JasmineIsHere/tgif-screensaver/releases/tag/v1.0.0)
 2. Unzip the file and find **`TgifScreensaver.saver`**.
 3. Double-click it — macOS will ask whether to install it for your user only or for everyone. Either option works.
 4. Open **System Settings → Screen Saver**, select **TgifScreensaver**, and click **Preview**.
