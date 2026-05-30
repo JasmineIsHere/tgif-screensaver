@@ -7,6 +7,10 @@ import SwiftUI
 // See the ClockView architecture comment for the full layer description.
 struct FlipDigitView: View {
 
+    // colorScheme is injected automatically by SwiftUI whenever .preferredColorScheme
+    // changes on an ancestor view — ClockView sets it based on the current phase.
+    @Environment(\.colorScheme) var colorScheme
+
     let digit: String   // a single character: "0"–"9"
 
     // previousDigit is what was showing before the current flip started.
@@ -79,9 +83,9 @@ struct FlipDigitView: View {
                     perspective: 0.4
                 )
 
-            // The midline gap — the visual "split" of a real flip clock card.
+            // The midline gap — matches the background so it blends in naturally.
             Rectangle()
-                .fill(.black)
+                .fill(colorScheme == .dark ? Color.black : Color.white)
                 .frame(width: cardWidth, height: 1.5)
         }
         .frame(width: cardWidth, height: cardHeight)
@@ -115,14 +119,16 @@ struct FlipDigitView: View {
         }
     }
 
-    // Renders the full card face: dark background + the digit centred on it.
+    // Renders the full card face with colours that adapt to the current mode.
+    // Dark mode (work week): near-black card, white text.
+    // Light mode (weekend):  light-grey card, black text.
     private func cardFace(_ text: String) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 6)
-                .fill(Color(white: 0.14))
+                .fill(colorScheme == .dark ? Color(white: 0.14) : Color(white: 0.88))
             Text(text)
                 .font(.system(size: fontSize, weight: .bold, design: .monospaced))
-                .foregroundStyle(.white)
+                .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
         }
         .frame(width: cardWidth, height: cardHeight)
     }

@@ -1,6 +1,7 @@
 # Tgif Screensaver
 
-![The Work Countdown](assets/theworkcountdown.png)
+![The Weekend Countdown](assets/theworkcountdown.png)
+![The Work Countdown](assets/theworkcountdown-light.png)
 
 A macOS screensaver that counts down to the weekend — or back to Monday.
 

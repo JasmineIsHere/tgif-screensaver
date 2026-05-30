@@ -19,7 +19,8 @@ struct ClockView: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            // Background is white on weekends, black during the work week.
+            (countdown.phase == .toMonday ? Color.white : Color.black).ignoresSafeArea()
 
             VStack(spacing: 28) {
 
@@ -41,6 +42,9 @@ struct ClockView: View {
                 }
             }
         }
+        // Propagate the colour scheme to all child views (flip cards, labels)
+        // so they can adapt their colours without needing explicit parameters.
+        .preferredColorScheme(countdown.phase == .toMonday ? .light : .dark)
         // Compute the first value immediately so the display isn't blank for 1 second.
         .onAppear {
             countdown = CountdownEngine.currentCountdown(tgifHour: prefs.tgifHour)
