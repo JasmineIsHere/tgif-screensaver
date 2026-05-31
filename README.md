@@ -49,9 +49,8 @@ tgif-screensaver/
 │       ├── DigitGroupView.swift       Two-card group (tens + units) + label
 │       ├── ClockView.swift            Root SwiftUI view, owns the timer
 │       └── TgifScreensaverView.swift  ScreenSaver.framework bridge
-├── Sources/CountdownLogic/        Copy of CountdownEngine for swift test
 ├── Tests/CountdownLogicTests/     Unit tests for countdown logic
-└── Package.swift                  Swift Package (tests only)
+└── Package.swift                  Swift Package (tests only — sources directly from Xcode project)
 ```
 
 ---

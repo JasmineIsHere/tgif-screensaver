@@ -4,12 +4,11 @@
 // from the terminal with `swift test`. It has no dependency on Xcode,
 // ScreenSaver.framework, or SwiftUI — just plain Foundation.
 //
-// Run from TheWorkCountdown/:
+// Run from the project root:
 //   swift test
 //
-// The source file under Sources/CountdownLogic/ is a copy of
-// TgifScreensaver/TgifScreensaver/CountdownEngine.swift.
-// If you change the countdown logic, update both files.
+// The CountdownLogic target points directly at the canonical Xcode source
+// file so there is no duplicate to keep in sync.
 
 import PackageDescription
 
@@ -17,9 +16,23 @@ let package = Package(
     name: "CountdownLogic",
     platforms: [.macOS(.v13)],
     targets: [
+        // Point straight at the Xcode source — no copy needed.
+        // `exclude` must come before `sources` (SPM manifest requirement).
+        // `exclude` silences warnings about the other files in the same directory;
+        // `sources` restricts compilation to CountdownEngine.swift only.
         .target(
             name: "CountdownLogic",
-            path: "Sources/CountdownLogic"
+            path: "TgifScreensaver/TgifScreensaver",
+            exclude: [
+                "ClockPreferences.swift",
+                "ClockView.swift",
+                "DigitGroupView.swift",
+                "FlipDigitView.swift",
+                "SettingsView.swift",
+                "TgifScreensaverView.swift",
+                "Info.plist",
+            ],
+            sources: ["CountdownEngine.swift"]
         ),
         .testTarget(
             name: "CountdownLogicTests",
