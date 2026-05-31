@@ -48,6 +48,7 @@ struct SettingsView: View {
             Text("The screensaver switches to weekend mode at this time on Friday.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
 
             Divider()
 
