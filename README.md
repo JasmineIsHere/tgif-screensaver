@@ -104,3 +104,12 @@ The two flaps animate sequentially (each 0.15 s) so the total flip takes 0.30 s.
 ### ScreenSaver bridge (`TgifScreensaverView.swift`)
 
 ScreenSaver.framework is AppKit-based, so the bundle's principal class (`TgifScreensaverView`) subclasses `ScreenSaverView` and embeds `ClockView` inside an `NSHostingView`. All SwiftUI logic lives entirely in `ClockView` and below.
+
+---
+## Upcoming features (WIP)
+
+### Calendar integration to countdown to holidays and vacation plans
+
+Expecting a long weekend or have a trip to Japan in a few days? Nothing beats the feeling of counting down to a long awaited break and instead of counting down to the end of a Friday. With this feature, you will be able to sync your local calendar to add your upcoming holiday plans and the clock counts down to the next time you are off work.
+
+Status: Design in progress
