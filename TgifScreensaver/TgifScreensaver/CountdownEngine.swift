@@ -2,9 +2,10 @@ import Foundation
 
 // Which countdown is currently active.
 // The UI uses this to show different messaging for each phase.
-enum CountdownPhase {
-    case toTGIF     // Work week: counting down to Friday 18:00
-    case toMonday   // Weekend: counting down to Monday 00:00
+enum CountdownPhase: Equatable {
+    case toDate(isComplete: Bool)
+    case toTGIF  // Work week: counting down to Friday 18:00
+    case toMonday  // Weekend: counting down to Monday 00:00
 }
 
 // TimeRemaining holds the countdown broken into its four display units,
@@ -21,11 +22,19 @@ struct TimeRemaining {
 // Every function takes a date as input and returns a value, making it easy to test
 // by passing any fake date you want.
 struct CountdownEngine {
+    static let initialTargetDate = ISO8601DateFormatter().date(from: "2026-10-19T07:00:00Z")!
 
     // Returns the active countdown for right now.
     // `tgifHour` is the hour (0–23) at which the weekend phase begins on Friday.
     // Passing a custom `now` is only needed for testing; normal callers use the defaults.
-    static func currentCountdown(from now: Date = Date(), tgifHour: Int = 18) -> TimeRemaining {
+    static func currentCountdown(
+        from now: Date = Date(), tgifHour: Int = 18, targetDate: Date? = nil
+    ) -> TimeRemaining {
+        if let targetDate {
+            let interval = targetDate.timeIntervalSince(now)
+            return .fromSeconds(
+                max(0, Int(ceil(interval))), phase: .toDate(isComplete: interval <= 0))
+        }
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: now)
         // weekday values: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat
@@ -36,10 +45,10 @@ struct CountdownEngine {
         switch weekday {
         case 7, 1:  // Saturday or Sunday — always weekend phase
             inWeekendPhase = true
-        case 6:     // Friday — depends on whether we've passed tgifHour
+        case 6:  // Friday — depends on whether we've passed tgifHour
             let hour = calendar.component(.hour, from: now)
             inWeekendPhase = hour >= tgifHour
-        default:    // Monday (2) through Thursday (5)
+        default:  // Monday (2) through Thursday (5)
             inWeekendPhase = false
         }
 
@@ -63,7 +72,8 @@ struct CountdownEngine {
         guard
             let friday = calendar.date(byAdding: .day, value: daysToFriday, to: startOfToday),
             // bySettingHour creates a new Date on the same day but at tgifHour:00:00 exactly
-            let fridayAtTGIF = calendar.date(bySettingHour: tgifHour, minute: 0, second: 0, of: friday)
+            let fridayAtTGIF = calendar.date(
+                bySettingHour: tgifHour, minute: 0, second: 0, of: friday)
         else {
             return .zero(phase: .toTGIF)
         }
@@ -83,7 +93,8 @@ struct CountdownEngine {
         // Fri(6)→3, Sat(7)→2, Sun(1)→1
         let daysToMonday = (2 - weekday + 7) % 7
 
-        guard let monday = calendar.date(byAdding: .day, value: daysToMonday, to: startOfToday) else {
+        guard let monday = calendar.date(byAdding: .day, value: daysToMonday, to: startOfToday)
+        else {
             return .zero(phase: .toMonday)
         }
 
@@ -106,10 +117,10 @@ extension TimeRemaining {
     // Example: 90061 seconds → 1d 1h 1m 1s
     static func fromSeconds(_ total: Int, phase: CountdownPhase) -> TimeRemaining {
         TimeRemaining(
-            days:    total / 86400,           // 86400 = 60 * 60 * 24
-            hours:   (total % 86400) / 3600,
-            minutes: (total % 3600)  / 60,
-            seconds:  total % 60,
+            days: total / 86400,  // 86400 = 60 * 60 * 24
+            hours: (total % 86400) / 3600,
+            minutes: (total % 3600) / 60,
+            seconds: total % 60,
             phase: phase
         )
     }

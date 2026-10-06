@@ -1,37 +1,51 @@
 import ScreenSaver
 
-// ClockPreferences stores user settings using ScreenSaverDefaults.
-//
-// ScreenSaverDefaults is Apple's version of UserDefaults scoped to a specific
-// screensaver bundle — it writes to ~/Library/Preferences/<bundleID>.plist so
-// the screensaver's prefs don't collide with other apps.
-//
-// This class is an ObservableObject so SwiftUI views can react when tgifHour changes.
 final class ClockPreferences: ObservableObject {
 
-    // @Published means: whenever tgifHour is set, notify any SwiftUI views watching this object.
+    @Published var usesSpecificDate: Bool
+    @Published var targetDate: Date
+    @Published var countdownLabel: String
     @Published var tgifHour: Int
 
     private let defaults: ScreenSaverDefaults?
-    private let tgifHourKey = "tgifHour"
 
-    // bundleID must match the screensaver bundle's CFBundleIdentifier.
-    // We get this at runtime from the bundle itself (see TgifScreensaverView).
+    private let tgifHourKey = "tgifHour"
     init(bundleID: String) {
         let d = ScreenSaverDefaults(forModuleWithName: bundleID)
-        // register(defaults:) sets the fallback value used when the key has never been written.
-        // It does NOT overwrite an existing saved value.
-        d?.register(defaults: ["tgifHour": 18])
+        d?.register(defaults: [
+            "usesSpecificDate": true,
+            "targetDate": CountdownEngine.initialTargetDate,
+            "countdownLabel": "FREEDOM IN",
+            tgifHourKey: 18,
+        ])
         self.defaults = d
+        self.usesSpecificDate = d?.bool(forKey: "usesSpecificDate") ?? true
+        self.targetDate =
+            d?.object(forKey: "targetDate") as? Date ?? CountdownEngine.initialTargetDate
+        self.countdownLabel = d?.string(forKey: "countdownLabel") ?? "FREEDOM IN"
         self.tgifHour = d?.integer(forKey: "tgifHour") ?? 18
     }
 
-    // Persists the current tgifHour value to disk.
-    // Call this when the user confirms the settings sheet.
+    // Re-read preferences so preview and full-screen instances see Options changes.
+    func reload() {
+        defaults?.synchronize()
+        guard let defaults else { return }
+        let mode = defaults.bool(forKey: "usesSpecificDate")
+        let date =
+            defaults.object(forKey: "targetDate") as? Date ?? CountdownEngine.initialTargetDate
+        let label = defaults.string(forKey: "countdownLabel") ?? "FREEDOM IN"
+        let hour = defaults.integer(forKey: tgifHourKey)
+        if usesSpecificDate != mode { usesSpecificDate = mode }
+        if targetDate != date { targetDate = date }
+        if countdownLabel != label { countdownLabel = label }
+        if tgifHour != hour { tgifHour = hour }
+    }
+
     func save() {
+        defaults?.set(usesSpecificDate, forKey: "usesSpecificDate")
+        defaults?.set(targetDate, forKey: "targetDate")
+        defaults?.set(countdownLabel, forKey: "countdownLabel")
         defaults?.set(tgifHour, forKey: tgifHourKey)
-        // synchronize() flushes the in-memory cache to disk immediately.
-        // Without it, writes might be delayed until the app quits.
         defaults?.synchronize()
     }
 }

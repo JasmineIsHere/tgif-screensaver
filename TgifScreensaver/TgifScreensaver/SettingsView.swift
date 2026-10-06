@@ -1,65 +1,76 @@
 import SwiftUI
 
-// SettingsView is the UI shown inside the screensaver's "Options..." sheet.
-// It lets the user pick what hour their work day ends on Friday.
-//
-// selectedHour is a local copy of prefs.tgifHour so that cancelling the sheet
-// discards changes — we only write to prefs when the user clicks OK.
+// Settings are staged locally; Cancel discards edits and OK persists them.
 struct SettingsView: View {
-
     @ObservedObject var prefs: ClockPreferences
-
-    // onDismiss is called by both OK and Cancel to close the sheet.
-    // The actual NSWindow dismissal logic lives in TgifScreensaverView,
-    // which creates this view and passes the closure in.
     let onDismiss: () -> Void
 
-    // Local copy of the hour so Cancel can discard without touching prefs.
+    @State private var usesSpecificDate: Bool
+    @State private var targetDate: Date
+    @State private var countdownLabel: String
     @State private var selectedHour: Int
+
+    private let singaporeTimeZone = TimeZone(identifier: "Asia/Singapore")!
 
     init(prefs: ClockPreferences, onDismiss: @escaping () -> Void) {
         self.prefs = prefs
         self.onDismiss = onDismiss
+        _usesSpecificDate = State(initialValue: prefs.usesSpecificDate)
+        _targetDate = State(initialValue: prefs.targetDate)
+        _countdownLabel = State(initialValue: prefs.countdownLabel)
         _selectedHour = State(initialValue: prefs.tgifHour)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-
-            Text("Flip Clock Settings")
-                .font(.headline)
-
+            Text("Flip Clock Settings").font(.headline)
             Divider()
-
-            HStack {
-                Text("Work ends at")
-                Spacer()
-                // Picker shows hours as "09:00", "17:00", etc.
-                // The tag(hour) binds each option to its integer value.
-                Picker("", selection: $selectedHour) {
-                    ForEach(0..<24, id: \.self) { hour in
-                        Text(String(format: "%02d:00", hour)).tag(hour)
-                    }
-                }
-                .labelsHidden()
-                .frame(width: 90)
+            Picker("Countdown to", selection: $usesSpecificDate) {
+                Text("Specific date").tag(true)
+                Text("End of the week").tag(false)
             }
 
-            Text("The screensaver switches to weekend mode at this time on Friday.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
+            if usesSpecificDate {
+                DatePicker(
+                    "Target", selection: $targetDate, displayedComponents: [.date, .hourAndMinute]
+                )
+                .environment(\.timeZone, singaporeTimeZone)
+                Text("Singapore time (SGT, UTC+8)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                TextField("Countdown label", text: $countdownLabel)
+                Text("At the target time, the countdown stays at zero and shows “It’s time!”.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                HStack {
+                    Text("Work ends at")
+                    Spacer()
+                    Picker("", selection: $selectedHour) {
+                        ForEach(0..<24, id: \.self) { hour in
+                            Text(String(format: "%02d:00", hour)).tag(hour)
+                        }
+                    }
+                    .labelsHidden()
+                    .frame(width: 90)
+                }
+                Text("The screensaver switches to weekend mode at this time on Friday.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+            }
 
             Divider()
-
             HStack {
                 Spacer()
-                Button("Cancel") {
-                    onDismiss()
-                }
-                .keyboardShortcut(.escape, modifiers: [])
-
+                Button("Cancel") { onDismiss() }
+                    .keyboardShortcut(.escape, modifiers: [])
                 Button("OK") {
+                    prefs.usesSpecificDate = usesSpecificDate
+                    prefs.targetDate = targetDate
+                    prefs.countdownLabel = countdownLabel
                     prefs.tgifHour = selectedHour
                     prefs.save()
                     onDismiss()
@@ -68,16 +79,17 @@ struct SettingsView: View {
             }
         }
         .padding(24)
-        .frame(width: 320)
-        // If the sheet is opened a second time, reset the picker to the saved value
-        // (in case a previous session ended with Cancel, selectedHour could be stale).
+        .frame(width: 420)
         .onAppear {
+            prefs.reload()
+            usesSpecificDate = prefs.usesSpecificDate
+            targetDate = prefs.targetDate
+            countdownLabel = prefs.countdownLabel
             selectedHour = prefs.tgifHour
         }
     }
 }
 
 #Preview {
-    // ScreenSaverDefaults isn't available in previews, so we stub a fake bundle ID.
     SettingsView(prefs: ClockPreferences(bundleID: "com.preview"), onDismiss: {})
 }

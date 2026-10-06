@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Displays one countdown unit as two individual flip cards plus a label.
+// Displays one countdown unit as individual flip cards plus a label.
 // Example: value=4, label="DAYS" → [0][4] over DAYS, where each card flips independently.
 //
 // Splitting into tens/units means "09" → "10" only flips the right card for 9→0
@@ -9,17 +9,17 @@ struct DigitGroupView: View {
     let value: Int
     let label: String
 
-    // Integer division and remainder cleanly extract the two digits.
-    // value=4  → tens="0", units="4"
-    // value=13 → tens="1", units="3"
-    private var tensDigit:  String { String(value / 10) }
-    private var unitsDigit: String { String(value % 10) }
+    // Keep at least two tiles, allowing distant targets to show three or more days digits.
+    private var digits: [String] {
+        String(format: "%02d", value).map { String($0) }
+    }
 
     var body: some View {
         VStack(spacing: 10) {
             HStack(spacing: 4) {
-                FlipDigitView(digit: tensDigit)
-                FlipDigitView(digit: unitsDigit)
+                ForEach(Array(digits.enumerated()), id: \.offset) { _, digit in
+                    FlipDigitView(digit: digit)
+                }
             }
 
             Text(label)
@@ -32,9 +32,9 @@ struct DigitGroupView: View {
 
 #Preview {
     HStack(spacing: 28) {
-        DigitGroupView(value: 4,  label: "DAYS")
+        DigitGroupView(value: 4, label: "DAYS")
         DigitGroupView(value: 13, label: "HRS")
-        DigitGroupView(value: 7,  label: "MINS")
+        DigitGroupView(value: 7, label: "MINS")
         DigitGroupView(value: 42, label: "SECS")
     }
     .padding(60)

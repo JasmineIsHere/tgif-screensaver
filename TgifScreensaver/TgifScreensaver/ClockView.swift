@@ -32,9 +32,9 @@ struct ClockView: View {
 
                 // The four digit groups in a row, separated by colons.
                 HStack(alignment: .top, spacing: 20) {
-                    DigitGroupView(value: countdown.days,    label: "DAYS")
+                    DigitGroupView(value: countdown.days, label: "DAYS")
                     colonSeparator
-                    DigitGroupView(value: countdown.hours,   label: "HRS")
+                    DigitGroupView(value: countdown.hours, label: "HRS")
                     colonSeparator
                     DigitGroupView(value: countdown.minutes, label: "MINS")
                     colonSeparator
@@ -46,14 +46,16 @@ struct ClockView: View {
         // so they can adapt their colours without needing explicit parameters.
         .preferredColorScheme(countdown.phase == .toMonday ? .light : .dark)
         // Compute the first value immediately so the display isn't blank for 1 second.
-        .onAppear {
-            countdown = CountdownEngine.currentCountdown(tgifHour: prefs.tgifHour)
-        }
-        // onReceive fires on every timer tick — we pass tgifHour so changes take effect
-        // at most one second after the user saves them in Settings.
-        .onReceive(timer) { _ in
-            countdown = CountdownEngine.currentCountdown(tgifHour: prefs.tgifHour)
-        }
+        .onAppear { tick() }
+        .onReceive(timer) { _ in tick() }
+    }
+
+    private func tick() {
+        prefs.reload()
+        countdown = CountdownEngine.currentCountdown(
+            tgifHour: prefs.tgifHour,
+            targetDate: prefs.usesSpecificDate ? prefs.targetDate : nil
+        )
     }
 
     // The colon separator between digit groups.
@@ -76,7 +78,11 @@ struct ClockView: View {
     // Returns the header string for the current countdown phase.
     private var headerText: String {
         switch countdown.phase {
-        case .toTGIF:   return "TIME UNTIL TGIF"
+        case .toDate(let isComplete):
+            if isComplete { return "IT’S TIME!" }
+            let label = prefs.countdownLabel.trimmingCharacters(in: .whitespacesAndNewlines)
+            return label.isEmpty ? "COUNTDOWN" : String(label.uppercased().prefix(24))
+        case .toTGIF: return "TIME UNTIL TGIF"
         case .toMonday: return "WEEKEND ENDS IN"
         }
     }
