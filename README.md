@@ -113,3 +113,11 @@ ScreenSaver.framework is AppKit-based, so the bundle's principal class (`TgifScr
 Expecting a long weekend or have a trip to Japan in a few days? Nothing beats the feeling of counting down to a long awaited break and instead of counting down to the end of a Friday. With this feature, you will be able to sync your local calendar to add your upcoming holiday plans and the clock counts down to the next time you are off work.
 
 Status: Design in progress
+
+### Configurable countdown
+
+The screensaver defaults to 19 October 2026 at 3:00 pm Singapore time. After installing this version once, open the screensaver’s **Options…** panel to change the target date, time, and label without reinstalling. The date picker always uses Singapore time (SGT, UTC+8), even when your Mac uses another timezone. Settings persist between sessions, and running previews read changes on their next tick.
+
+Choose **End of the week** to restore the Friday/weekend countdown. **Specific date** counts directly to your target, independently of calendars. At the target, it stays at zero and displays “It’s time!”. Cancel discards unsaved edits.
+
+Swift formatting uses the checked-in `.swift-format` configuration. For changed Swift files, run `xcrun swift-format format --in-place <files>`, then `xcrun swift-format lint --strict <files>`.

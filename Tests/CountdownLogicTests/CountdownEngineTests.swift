@@ -1,18 +1,58 @@
-import XCTest
 import Foundation
+import XCTest
+
 @testable import CountdownLogic
 
 // Helper: build a specific Date from components without boilerplate.
 // If the components are invalid (e.g. month 13), the test will crash — that's intentional.
-private func makeDate(year: Int, month: Int, day: Int,
-                      hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date {
+private func makeDate(
+    year: Int, month: Int, day: Int,
+    hour: Int = 0, minute: Int = 0, second: Int = 0
+) -> Date {
     var c = DateComponents()
-    c.year = year; c.month = month; c.day = day
-    c.hour = hour; c.minute = minute; c.second = second
+    c.year = year
+    c.month = month
+    c.day = day
+    c.hour = hour
+    c.minute = minute
+    c.second = second
     return Calendar.current.date(from: c)!
 }
 
 final class CountdownEngineTests: XCTestCase {
+    // A fixed target must take precedence over the weekly countdown.
+    func testSpecificDateOverridesWeeklyCountdown() {
+        let now = ISO8601DateFormatter().date(from: "2026-10-10T07:00:00Z")!
+        let target = ISO8601DateFormatter().date(from: "2026-10-19T07:00:00Z")!
+        let result = CountdownEngine.currentCountdown(
+            from: now, targetDate: target)
+        XCTAssertEqual(result.phase, .toDate(isComplete: false))
+        XCTAssertEqual(result.days, 9)
+        XCTAssertEqual(result.hours, 0)
+    }
+
+    func testSpecificDateCountsToSingaporeInstantPrecisely() {
+        let now = ISO8601DateFormatter().date(from: "2026-10-19T06:59:01Z")!
+        let result = CountdownEngine.currentCountdown(
+            from: now, targetDate: CountdownEngine.initialTargetDate)
+        XCTAssertEqual(result.seconds, 59)
+        XCTAssertEqual(result.minutes, 0)
+        XCTAssertEqual(result.hours, 0)
+        XCTAssertEqual(result.days, 0)
+        XCTAssertEqual(result.phase, .toDate(isComplete: false))
+    }
+
+    func testSpecificDateStaysAtZeroAtAndAfterTarget() {
+        let target = ISO8601DateFormatter().date(from: "2026-10-19T07:00:00Z")!
+        for now in [target, target.addingTimeInterval(86400)] {
+            let result = CountdownEngine.currentCountdown(from: now, targetDate: target)
+            XCTAssertEqual(result.phase, .toDate(isComplete: true))
+            XCTAssertEqual(result.days, 0)
+            XCTAssertEqual(result.hours, 0)
+            XCTAssertEqual(result.minutes, 0)
+            XCTAssertEqual(result.seconds, 0)
+        }
+    }
 
     // MARK: - Phase detection
 
@@ -113,8 +153,8 @@ final class CountdownEngineTests: XCTestCase {
     func testFriday_nearMidnight_precision() {
         let friday = makeDate(year: 2026, month: 1, day: 9, hour: 17, minute: 59, second: 1)
         let result = CountdownEngine.currentCountdown(from: friday)
-        XCTAssertEqual(result.days,    0)
-        XCTAssertEqual(result.hours,   0)
+        XCTAssertEqual(result.days, 0)
+        XCTAssertEqual(result.hours, 0)
         XCTAssertEqual(result.minutes, 0)
         XCTAssertEqual(result.seconds, 59)
     }
@@ -123,8 +163,8 @@ final class CountdownEngineTests: XCTestCase {
     func testSunday_nearMidnight_precision() {
         let sunday = makeDate(year: 2026, month: 1, day: 11, hour: 23, minute: 59, second: 1)
         let result = CountdownEngine.currentCountdown(from: sunday)
-        XCTAssertEqual(result.days,    0)
-        XCTAssertEqual(result.hours,   0)
+        XCTAssertEqual(result.days, 0)
+        XCTAssertEqual(result.hours, 0)
         XCTAssertEqual(result.minutes, 0)
         XCTAssertEqual(result.seconds, 59)
     }
@@ -151,7 +191,7 @@ final class CountdownEngineTests: XCTestCase {
         let monday = makeDate(year: 2026, month: 1, day: 5, hour: 9, minute: 0, second: 0)
         let result = CountdownEngine.currentCountdown(from: monday, tgifHour: 17)
         XCTAssertEqual(result.phase, .toTGIF)
-        XCTAssertEqual(result.days,  4)
+        XCTAssertEqual(result.days, 4)
         XCTAssertEqual(result.hours, 8)
         XCTAssertEqual(result.minutes, 0)
         XCTAssertEqual(result.seconds, 0)
@@ -162,8 +202,8 @@ final class CountdownEngineTests: XCTestCase {
     // 90 061 seconds = 1 day, 1 hour, 1 minute, 1 second.
     func testFromSeconds_decomposition() {
         let t = TimeRemaining.fromSeconds(90_061, phase: .toTGIF)
-        XCTAssertEqual(t.days,    1)
-        XCTAssertEqual(t.hours,   1)
+        XCTAssertEqual(t.days, 1)
+        XCTAssertEqual(t.hours, 1)
         XCTAssertEqual(t.minutes, 1)
         XCTAssertEqual(t.seconds, 1)
     }
@@ -171,8 +211,8 @@ final class CountdownEngineTests: XCTestCase {
     // 0 seconds → all zeros.
     func testFromSeconds_zero() {
         let t = TimeRemaining.fromSeconds(0, phase: .toMonday)
-        XCTAssertEqual(t.days,    0)
-        XCTAssertEqual(t.hours,   0)
+        XCTAssertEqual(t.days, 0)
+        XCTAssertEqual(t.hours, 0)
         XCTAssertEqual(t.minutes, 0)
         XCTAssertEqual(t.seconds, 0)
     }
@@ -180,8 +220,8 @@ final class CountdownEngineTests: XCTestCase {
     // 86 399 seconds = 0 days, 23 hours, 59 minutes, 59 seconds.
     func testFromSeconds_almostOneDay() {
         let t = TimeRemaining.fromSeconds(86_399, phase: .toTGIF)
-        XCTAssertEqual(t.days,    0)
-        XCTAssertEqual(t.hours,   23)
+        XCTAssertEqual(t.days, 0)
+        XCTAssertEqual(t.hours, 23)
         XCTAssertEqual(t.minutes, 59)
         XCTAssertEqual(t.seconds, 59)
     }

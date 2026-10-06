@@ -15,26 +15,14 @@ class TgifScreensaverView: ScreenSaverView {
     // lazy var means it's only created when first accessed, at which point Self.self
     // is a fully initialised object and Bundle(for:) works correctly.
     private lazy var preferences: ClockPreferences = {
-        let bundleID = Bundle(for: TgifScreensaverView.self).bundleIdentifier
+        let bundleID =
+            Bundle(for: TgifScreensaverView.self).bundleIdentifier
             ?? "com.flipclock"
         return ClockPreferences(bundleID: bundleID)
     }()
 
-    // The settings window is also created lazily so we only build it if the user
-    // actually clicks "Options..." in System Settings.
-    private lazy var configureSheetWindow: NSWindow = {
-        let view = SettingsView(prefs: preferences) { [weak self] in
-            guard let self else { return }
-            // endSheet tells macOS the modal sheet is finished.
-            // The parent is the System Settings window that presented the sheet.
-            self.configureSheetWindow.sheetParent?.endSheet(self.configureSheetWindow)
-        }
-        // NSHostingController wraps a SwiftUI view so it can be the content of an NSWindow.
-        let controller = NSHostingController(rootView: view)
-        let window = NSWindow(contentViewController: controller)
-        window.styleMask = [.titled]
-        return window
-    }()
+    // Recreate the sheet each time so cancelled drafts do not survive reopening.
+    private var configureSheetWindow: NSWindow?
 
     // macOS calls this when the screensaver is first loaded.
     // isPreview is true when shown in System Settings, false on the real screen.
@@ -72,5 +60,16 @@ class TgifScreensaverView: ScreenSaverView {
     override var hasConfigureSheet: Bool { true }
 
     // macOS calls this to get the window to show as a sheet when the user clicks "Options...".
-    override var configureSheet: NSWindow? { configureSheetWindow }
+    override var configureSheet: NSWindow? {
+        preferences.reload()
+        let view = SettingsView(prefs: preferences) { [weak self] in
+            guard let window = self?.configureSheetWindow else { return }
+            window.sheetParent?.endSheet(window)
+        }
+        let controller = NSHostingController(rootView: view)
+        let window = NSWindow(contentViewController: controller)
+        window.styleMask = [.titled]
+        configureSheetWindow = window
+        return window
+    }
 }
